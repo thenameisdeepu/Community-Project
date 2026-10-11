@@ -1,0 +1,6 @@
+{
+  "name": "CommunityFix - Civic Campus Oversight",
+  "description": "Civic intelligence and campus infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
