@@ -3,16 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CommunityFix - Civic Campus Oversight</title>
-    <meta name="description" content="Civic intelligence and campus infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers." />
-    <meta property="og:title" content="CommunityFix - Civic Campus Oversight" />
-    <meta property="og:description" content="Civic intelligence and campus infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers." />
+    <title>Neighbrly - Better Neighbourhoods Start Here</title>
+    <meta name="description" content="Civic intelligence and neighborhood infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers." />
+    <meta property="og:title" content="Neighbrly - Better Neighbourhoods Start Here" />
+    <meta property="og:description" content="Civic intelligence and neighborhood infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('neighbrly_theme');
+          var isDark = saved ? saved === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-[#faf8ff] text-[#131b2e] antialiased selection:bg-[#dde1ff] selection:text-[#001453]">
     <div id="root"></div>

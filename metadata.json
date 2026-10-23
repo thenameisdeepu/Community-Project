@@ -1,6 +1,6 @@
 {
-  "name": "CommunityFix - Civic Campus Oversight",
-  "description": "Civic intelligence and campus infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers.",
+  "name": "Neighbrly - Better Neighbourhoods Start Here",
+  "description": "Civic intelligence and neighborhood infrastructure tracking platform with community verification, real-time dispatch, and resident audit ledgers.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

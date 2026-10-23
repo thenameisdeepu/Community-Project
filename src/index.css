@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Public Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -80,4 +82,257 @@
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.fill-1,
+.material-symbols-outlined[data-filled="true"] {
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+/* -------------------------------------------------------------
+ * GLOBAL POLISHED DARK MODE DESIGN SYSTEM
+ * ------------------------------------------------------------- */
+html.dark {
+  color-scheme: dark;
+}
+
+/* Smooth transition when toggling themes */
+html.dark *,
+html.dark *::before,
+html.dark *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+html.dark body {
+  background-color: #0b1120 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Main Application Layout & Views */
+html.dark .bg-\[\#faf8ff\],
+html.dark .bg-\[\#faf8ff\]\/95,
+html.dark .bg-\[\#f8f9ff\] {
+  background-color: #0b1120 !important;
+}
+
+/* Header & Navigation Bar */
+html.dark header {
+  background-color: rgba(17, 24, 39, 0.95) !important;
+  border-color: #2a3648 !important;
+}
+
+/* Sidebar Navigation (w-64, w-72, and collapsed w-20) */
+html.dark aside,
+html.dark .bg-\[\#f2f3ff\] {
+  background-color: #111827 !important;
+  border-color: #2a3648 !important;
+}
+
+/* Dashboard Cards, Panels & Containers */
+html.dark .bg-white {
+  background-color: #151e2e !important;
+  border-color: #2a3648 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Elevated Containers, Tooltips & Dialog Popups */
+html.dark .bg-\[\#eaedff\],
+html.dark .bg-\[\#e2e7ff\] {
+  background-color: #1b2638 !important;
+  border-color: #2a3648 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Soft Slate Backgrounds (Inputs, Cards, Secondary Pills) */
+html.dark .bg-slate-50,
+html.dark .bg-slate-50\/50,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/70,
+html.dark .bg-slate-50\/80,
+html.dark .bg-slate-100 {
+  background-color: #182234 !important;
+  border-color: #2a3648 !important;
+}
+
+/* Dark Mode Gradient Safety Overrides */
+html.dark .to-white {
+  --tw-gradient-to: #151e2e !important;
+}
+
+html.dark .from-white {
+  --tw-gradient-from: #1b2638 !important;
+}
+
+html.dark .via-white {
+  --tw-gradient-stops: var(--tw-gradient-from), #182234, var(--tw-gradient-to) !important;
+}
+
+/* Primary Text Contrast */
+html.dark .text-\[\#131b2e\],
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+/* Secondary & Body Text Contrast */
+html.dark .text-\[\#444653\],
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+/* Muted & Footnote Text Contrast */
+html.dark .text-\[\#757684\],
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: #a0aec0 !important;
+}
+
+/* Primary Brand Accent Links & Texts in Dark Mode */
+html.dark .text-\[\#00288e\] {
+  color: #60a5fa !important;
+}
+
+html.dark .bg-\[\#00288e\]\/10,
+html.dark .bg-\[\#00288e\]\/15 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Green / Emerald Accent Contrast in Dark Mode (High-contrast WCAG AA) */
+html.dark .text-\[\#006c4a\] {
+  color: #34d399 !important; /* Bright emerald-400 for high-contrast readability */
+}
+
+html.dark .bg-\[\#82f5c1\]\/10,
+html.dark .bg-\[\#82f5c1\]\/20,
+html.dark .bg-\[\#82f5c1\]\/25,
+html.dark .bg-\[\#82f5c1\]\/30,
+html.dark .bg-\[\#82f5c1\]\/40,
+html.dark .bg-\[\#82f5c1\]\/50 {
+  background-color: rgba(6, 78, 59, 0.5) !important; /* Deep emerald-900 container */
+}
+
+html.dark .border-\[\#006c4a\]\/20,
+html.dark .border-\[\#006c4a\]\/30,
+html.dark .border-\[\#006c4a\]\/40,
+html.dark .border-\[\#82f5c1\]\/30,
+html.dark .border-\[\#82f5c1\]\/40 {
+  border-color: rgba(52, 211, 153, 0.4) !important; /* Emerald-400 border */
+}
+
+/* Orange / Amber Maintenance Accent in Dark Mode */
+html.dark .text-\[\#6e3900\] {
+  color: #fbbf24 !important; /* Amber-400 */
+}
+
+html.dark .bg-\[\#ffdcc3\] {
+  background-color: rgba(120, 53, 15, 0.45) !important; /* Amber-900 */
+}
+
+/* Borders & Dividers Across Every Component */
+html.dark .border-\[\#c4c5d5\]\/20,
+html.dark .border-\[\#c4c5d5\]\/30,
+html.dark .border-\[\#c4c5d5\]\/40,
+html.dark .border-\[\#c4c5d5\]\/50,
+html.dark .border-\[\#c4c5d5\],
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-200\/60,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/90,
+html.dark .border-\[\#eaedff\],
+html.dark .border-\[\#dae2fd\],
+html.dark .divide-\[\#eaedff\] > * + * {
+  border-color: #2a3648 !important;
+}
+
+/* Inputs, Textareas, Select Dropdowns */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #111827 !important;
+  color: #f1f5f9 !important;
+  border-color: #2a3648 !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: #3b82f6 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Table Headers, Rows & Hover States */
+html.dark thead tr,
+html.dark th {
+  background-color: #111827 !important;
+  color: #94a3b8 !important;
+  border-color: #2a3648 !important;
+}
+
+html.dark tbody tr {
+  border-color: #2a3648 !important;
+}
+
+html.dark tbody tr:hover,
+html.dark .hover\:bg-\[\#f2f3ff\]\/50:hover,
+html.dark .hover\:bg-\[\#f2f3ff\]:hover,
+html.dark .hover\:bg-\[\#eaedff\]:hover,
+html.dark .hover\:bg-slate-100:hover {
+  background-color: #1b2638 !important;
+}
+
+/* Modals & Dialog Windows (Role Dialog, Backdrop, and Drawers) */
+html.dark div[role="dialog"] > div {
+  background-color: #151e2e !important;
+  border-color: #2a3648 !important;
+  color: #f1f5f9 !important;
+}
+
+/* CommUnity AI Chat Interface in Dark Mode */
+html.dark .ai-chat-body {
+  background-color: #0b1120 !important;
+}
+
+html.dark .ai-bubble-bot {
+  background-color: #1b2638 !important;
+  border-color: #2a3648 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Dark Mode Scrollbars */
+html.dark ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #0b1120;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2a3648;
+  border-radius: 9999px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3e4f66;
 }

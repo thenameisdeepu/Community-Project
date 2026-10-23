@@ -1,41 +1,74 @@
 import React, { useState } from 'react';
-import { Role, Language, UserProfile } from '../types';
+import { Role, Language, UserProfile, Issue } from '../types';
 import { translations } from '../data/translations';
-import { campusNotifications } from '../data/mockData';
+import { NeighbrlyLogo } from './NeighbrlyLogo';
 
 interface HeaderProps {
   currentRole: Role;
-  onRoleChange: (role: Role) => void;
   lang: Language;
   onLangChange: (lang: Language) => void;
-  onOpenReportModal: () => void;
+  onOpenReportModal?: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onOpenShortcuts: () => void;
   onSelectIssue: (id: string) => void;
   currentUser: UserProfile | null;
   onLogout: () => void;
+  onRoleChange?: (role: Role) => void;
+  userIssues?: Issue[];
+  onOpenAIChat?: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebar?: () => void;
+  isDarkMode?: boolean;
+  onToggleTheme?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentRole,
-  onRoleChange,
   lang,
   onLangChange,
-  onOpenReportModal,
   searchQuery,
   onSearchChange,
   onOpenShortcuts,
   onSelectIssue,
   currentUser,
   onLogout,
+  userIssues,
+  onOpenAIChat,
+  isSidebarCollapsed = false,
+  onToggleSidebar,
+  isDarkMode = false,
+  onToggleTheme,
 }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [notifications, setNotifications] = useState(campusNotifications);
+  const [notifications, setNotifications] = useState<any[]>([]);
   const t = translations[lang];
 
-  const unreadCount = notifications.filter((n) => n.unread).length;
+  // For resident: only show notifications about their complaints, NO verification/signoff alerts
+  const residentIssueIds = userIssues ? userIssues.map((i) => i.id) : [];
+  const activeNotifications = currentRole === 'community'
+    ? notifications.filter((n) => {
+        const titleLower = n.title.toLowerCase();
+        const descLower = n.message.toLowerCase();
+        // Remove verification / signoff notifications
+        if (
+          titleLower.includes('signoff') ||
+          descLower.includes('signoff') ||
+          titleLower.includes('verification') ||
+          descLower.includes('verification')
+        ) {
+          return false;
+        }
+        // Only include if it matches one of the resident's issues
+        if (n.actionId) {
+          return residentIssueIds.includes(n.actionId);
+        }
+        return false;
+      })
+    : notifications;
+
+  const unreadCount = activeNotifications.filter((n) => n.unread).length;
 
   const markAllRead = () => {
     setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
@@ -44,64 +77,27 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#faf8ff]/95 backdrop-blur-xl border-b border-[#c4c5d5]/30 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
       <div className="h-16 w-full px-4 sm:px-6 flex items-center justify-between gap-4">
-        {/* Left: Logo & Campus Pilot Info */}
-        <div className="flex items-center gap-3">
-          <img
-            alt="CommunityFix Logo"
-            className="h-8 w-auto object-contain shrink-0"
-            src="https://lh3.googleusercontent.com/aida/AEtjO1UOdnNsR0qQTb6dCiNSQEfKZd0qefB16aOKOz6dsEokuqJZKz8cwmcjiSRyrzNicDZeyxzmMUe6AwPjvxmkY6rRlaq5PJmbq2up6NMZXoSU9bGZEhPxdGuh-lXFnDtn25yAb6JJTXvP_F1Ump2ZYytINOdft_YVZLRMVUWBmI-D0bFwRNyOIRx5zeQxASkm0mGPBbvvYQy3ntokF_oeRPrFmq21eKX-s2OnmemPNlI0JKRyd0TDg7Eu96g"
-          />
-          <div className="flex flex-col">
-            <span className="font-sans font-bold text-lg text-[#00288e] tracking-tight leading-none">
-              {t.appTitle}
-            </span>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="font-mono text-[10px] font-semibold text-[#006c4a] bg-[#82f5c1]/30 px-1.5 py-0.2 rounded uppercase tracking-wider">
-                {t.pilotBadge}
+        {/* Left: Hamburger Sidebar Toggle & Neighbrly Logo */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
+          {onToggleSidebar && (
+            <button
+              type="button"
+              onClick={onToggleSidebar}
+              aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              aria-expanded={!isSidebarCollapsed}
+              title={isSidebarCollapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)'}
+              className="p-1.5 sm:p-2 -ml-1 sm:ml-0 rounded-lg text-[#131b2e] hover:bg-[#eaedff] active:bg-[#dde1ff] hover:text-[#00288e] transition-colors cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00288e]/30"
+            >
+              <span className="material-symbols-outlined text-[24px]">
+                {isSidebarCollapsed ? 'menu' : 'menu_open'}
               </span>
-              <span className="font-sans text-xs text-[#444653] font-medium hidden sm:inline">
-                {t.campusName}
-              </span>
-            </div>
+            </button>
+          )}
+          <div className="flex items-center text-left">
+            <NeighbrlyLogo size="md" showText={true} tagline={t.appTagline} />
           </div>
         </div>
 
-        {/* Center: Multi-Role Segmented Switcher */}
-        <div className="hidden xl:flex items-center p-1 bg-[#eaedff] rounded-xl gap-1">
-          <button
-            type="button"
-            onClick={() => onRoleChange('community')}
-            className={`px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all ${
-              currentRole === 'community'
-                ? 'bg-white text-[#00288e] shadow-sm font-semibold'
-                : 'text-[#444653] hover:text-[#131b2e]'
-            }`}
-          >
-            {t.roleCommunity}
-          </button>
-          <button
-            type="button"
-            onClick={() => onRoleChange('admin')}
-            className={`px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all ${
-              currentRole === 'admin'
-                ? 'bg-white text-[#00288e] shadow-sm font-semibold'
-                : 'text-[#444653] hover:text-[#131b2e]'
-            }`}
-          >
-            {t.roleAdmin}
-          </button>
-          <button
-            type="button"
-            onClick={() => onRoleChange('maintenance')}
-            className={`px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all ${
-              currentRole === 'maintenance'
-                ? 'bg-white text-[#00288e] shadow-sm font-semibold'
-                : 'text-[#444653] hover:text-[#131b2e]'
-            }`}
-          >
-            {t.roleMaintenance}
-          </button>
-        </div>
 
         {/* Right Action Icons & Profile */}
         <div className="flex items-center gap-3">
@@ -127,16 +123,6 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
           </div>
-
-          {/* Quick Report Issue Button */}
-          <button
-            type="button"
-            onClick={onOpenReportModal}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#1e40af] hover:bg-[#00288e] text-white rounded-lg text-xs font-semibold shadow-sm hover:shadow transition-all active:scale-95"
-          >
-            <span className="material-symbols-outlined text-[18px]">add_circle</span>
-            <span>{t.reportIssueBtn}</span>
-          </button>
 
           {/* Language Toggle Pill in Header */}
           <div className="flex items-center bg-[#eaedff] rounded-lg p-0.5" role="group">
@@ -164,6 +150,21 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
 
+          {/* Theme Mode Toggle (Light / Dark) */}
+          {onToggleTheme && (
+            <button
+              type="button"
+              onClick={onToggleTheme}
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={isDarkMode ? 'Switch to light mode (D)' : 'Switch to dark mode (D)'}
+              className="p-2 rounded-lg text-[#444653] hover:text-[#00288e] hover:bg-[#eaedff] transition-all cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00288e]/30"
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                {isDarkMode ? 'light_mode' : 'dark_mode'}
+              </span>
+            </button>
+          )}
+
           {/* Notifications Bell */}
           <div className="relative">
             <button
@@ -185,39 +186,59 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-[#c4c5d5]/40 p-3 z-50">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#eaedff]">
                   <span className="font-sans font-semibold text-xs text-[#131b2e]">
-                    Campus Activity Alerts
+                    {currentRole === 'community'
+                      ? (lang === 'kn' ? 'ನನ್ನ ದೂರುಗಳ ಅಪ್‌ಡೇಟ್‌ಗಳು' : 'My Complaint Alerts')
+                      : 'Campus Activity Alerts'}
                   </span>
-                  <button
-                    type="button"
-                    onClick={markAllRead}
-                    className="text-[10px] font-mono text-[#00288e] hover:underline"
-                  >
-                    Mark read
-                  </button>
+                  {activeNotifications.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={markAllRead}
+                      className="text-[10px] font-mono text-[#00288e] hover:underline"
+                    >
+                      Mark read
+                    </button>
+                  )}
                 </div>
                 <div className="space-y-2 max-h-64 overflow-y-auto">
-                  {notifications.map((item) => (
-                    <div
-                      key={item.id}
-                      onClick={() => {
-                        if (item.actionId) onSelectIssue(item.actionId);
-                        setShowNotifications(false);
-                      }}
-                      className={`p-2 rounded-lg text-left cursor-pointer transition-colors ${
-                        item.unread ? 'bg-[#f2f3ff] hover:bg-[#eaedff]' : 'hover:bg-gray-50'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-sans text-xs font-semibold text-[#131b2e]">
-                          {item.title}
-                        </span>
-                        <span className="font-mono text-[10px] text-[#757684]">{item.time}</span>
-                      </div>
-                      <p className="font-sans text-[11px] text-[#444653] mt-0.5 leading-snug">
-                        {item.message}
+                  {activeNotifications.length === 0 ? (
+                    <div className="p-5 text-center">
+                      <span className="material-symbols-outlined text-[24px] text-[#757684]/50 mb-1">
+                        notifications_none
+                      </span>
+                      <p className="font-sans text-xs font-semibold text-[#131b2e]">
+                        {lang === 'kn' ? 'ನಿಮ್ಮ ಅಧಿಸೂಚನೆಗಳು ಇಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ' : 'Your notifications will appear here.'}
+                      </p>
+                      <p className="font-sans text-[11px] text-[#757684] mt-0.5">
+                        {lang === 'kn'
+                          ? 'ದೂರುಗಳ ನವೀಕರಣಗಳು ಮತ್ತು ರವಾನೆ ಸಂದೇಶಗಳು ಇಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ.'
+                          : 'Real-time dispatch alerts and resolution updates will show here.'}
                       </p>
                     </div>
-                  ))}
+                  ) : (
+                    activeNotifications.map((item) => (
+                      <div
+                        key={item.id}
+                        onClick={() => {
+                          if (item.actionId) onSelectIssue(item.actionId);
+                          setShowNotifications(false);
+                        }}
+                        className={`p-2 rounded-lg text-left cursor-pointer transition-colors ${
+                          item.unread ? 'bg-[#f2f3ff] hover:bg-[#eaedff]' : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-sans text-xs font-semibold text-[#131b2e]">
+                            {item.title}
+                          </span>
+                          <span className="font-mono text-[10px] text-[#757684]">{item.time}</span>
+                        </div>
+                        <p className="font-sans text-[11px] text-[#444653] mt-0.5 leading-snug">
+                          {item.message}
+                        </p>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             )}

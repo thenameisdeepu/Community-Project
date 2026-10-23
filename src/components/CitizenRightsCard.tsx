@@ -42,43 +42,43 @@ export const CitizenRightsCard: React.FC<CitizenRightsCardProps> = ({ lang }) =>
 
       {/* Service Charter Modal */}
       {showCharterModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#283044]/40 backdrop-blur-xs">
-          <div className="bg-white max-w-lg w-full rounded-xl p-6 shadow-xl border border-[#c4c5d5]/40 animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#eaedff]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#283044]/40 dark:bg-black/60 backdrop-blur-xs">
+          <div className="bg-white dark:bg-[#151E2E] max-w-lg w-full rounded-xl p-6 shadow-xl border border-[#c4c5d5]/40 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-150 transition-colors">
+            <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#eaedff] dark:border-slate-800">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#00288e] text-[22px]">
+                <span className="material-symbols-outlined text-[#00288e] dark:text-blue-400 text-[22px]">
                   verified_user
                 </span>
-                <h3 className="font-sans font-bold text-base text-[#131b2e]">
+                <h3 className="font-sans font-bold text-base text-[#131b2e] dark:text-slate-100">
                   Greenwood Campus Civic Charter
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setShowCharterModal(false)}
-                className="text-[#757684] hover:text-[#131b2e]"
+                className="text-[#757684] hover:text-[#131b2e] dark:text-slate-400 dark:hover:text-slate-200"
               >
                 <span className="material-symbols-outlined text-[20px]">close</span>
               </button>
             </div>
 
-            <div className="space-y-3 font-sans text-xs text-[#444653] leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
-              <div className="p-3 bg-[#f2f3ff] rounded-lg">
-                <strong className="text-[#00288e] block mb-1">
+            <div className="space-y-3 font-sans text-xs text-[#444653] dark:text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
+              <div className="p-3 bg-[#f2f3ff] dark:bg-slate-800/60 rounded-lg border border-[#eaedff] dark:border-slate-700">
+                <strong className="text-[#00288e] dark:text-blue-300 block mb-1">
                   Section 1: 15-Minute Triage Guarantee
                 </strong>
                 Every submitted safety or utility hazard receives initial verification and dispatch triage within 15 minutes by Campus Operations.
               </div>
 
-              <div className="p-3 bg-[#f2f3ff] rounded-lg">
-                <strong className="text-[#00288e] block mb-1">
+              <div className="p-3 bg-[#f2f3ff] dark:bg-slate-800/60 rounded-lg border border-[#eaedff] dark:border-slate-700">
+                <strong className="text-[#00288e] dark:text-blue-300 block mb-1">
                   Section 2: Resident Sovereign Verification
                 </strong>
                 No field work order is marked officially closed until confirmed by the resident who logged the ticket, accompanied by photographic proof.
               </div>
 
-              <div className="p-3 bg-[#f2f3ff] rounded-lg">
-                <strong className="text-[#00288e] block mb-1">
+              <div className="p-3 bg-[#f2f3ff] dark:bg-slate-800/60 rounded-lg border border-[#eaedff] dark:border-slate-700">
+                <strong className="text-[#00288e] dark:text-blue-300 block mb-1">
                   Section 3: Automatic Provost Escalation
                 </strong>
                 If high-severity hazards remain in active status past 24 hours, notification is routed directly to the Provost Operations Directorate with priority audit status.
@@ -89,7 +89,7 @@ export const CitizenRightsCard: React.FC<CitizenRightsCardProps> = ({ lang }) =>
               <button
                 type="button"
                 onClick={() => setShowCharterModal(false)}
-                className="px-4 py-2 bg-[#00288e] text-white rounded-lg text-xs font-semibold hover:bg-[#1e40af]"
+                className="px-4 py-2 bg-[#00288e] dark:bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-[#1e40af] dark:hover:bg-blue-500 shadow-sm"
               >
                 Understood & Close
               </button>

@@ -54,6 +54,20 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
           </div>
 
           <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#f2f3ff]">
+            <span className="text-[#131b2e] font-medium">Toggle Dark / Light Theme</span>
+            <kbd className="px-2.5 py-1 rounded bg-white font-mono text-[11px] text-[#00288e] font-bold shadow-xs border border-[#c4c5d5]/40">
+              D
+            </kbd>
+          </div>
+
+          <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#f2f3ff]">
+            <span className="text-[#131b2e] font-medium">Toggle Collapsible Sidebar</span>
+            <kbd className="px-2.5 py-1 rounded bg-white font-mono text-[11px] text-[#00288e] font-bold shadow-xs border border-[#c4c5d5]/40">
+              Ctrl + B
+            </kbd>
+          </div>
+
+          <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#f2f3ff]">
             <span className="text-[#131b2e] font-medium">Close Modals / Overlays</span>
             <kbd className="px-2.5 py-1 rounded bg-white font-mono text-[11px] text-[#00288e] font-bold shadow-xs border border-[#c4c5d5]/40">
               Esc

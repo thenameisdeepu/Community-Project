@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="greenGradFav" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2ad37a" />
+      <stop offset="35%" stop-color="#22c55e" />
+      <stop offset="75%" stop-color="#16a34a" />
+      <stop offset="100%" stop-color="#006c4a" />
+    </linearGradient>
+    <linearGradient id="navyGradFav" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#13233f" />
+      <stop offset="100%" stop-color="#0a1526" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Navy Pillar & Roof Peak -->
+  <path
+    d="M 24.5 75.5 C 24.5 78 26.5 80 29 80 H 33.5 C 35.5 80 36.5 78.5 36.5 76.5 V 45 L 50.5 34 V 28.5 L 38 19 C 36.5 18 34.5 18 33 19 L 24.5 27 Z"
+    fill="url(#navyGradFav)"
+  />
+
+  <!-- Right Green Pillar & Roof Peak -->
+  <path
+    d="M 50.5 28.5 L 63 19 C 64.5 18 66.5 18 68 19 L 76.5 27 V 75.5 C 76.5 78 74.5 80 72 80 H 64 V 63.5 L 55 63.5 L 63.5 54.5 V 45 L 50.5 34 Z"
+    fill="url(#greenGradFav)"
+  />
+
+  <!-- Dark Green Fold Notch -->
+  <polygon points="55,63.5 64,63.5 64,54.5" fill="#023c26" />
+
+  <!-- 2x2 Navy Window Panes -->
+  <rect x="45" y="47.5" width="4.2" height="4.2" rx="1.2" fill="#0e1e38" />
+  <rect x="51.6" y="47.5" width="4.2" height="4.2" rx="1.2" fill="#0e1e38" />
+  <rect x="45" y="54.1" width="4.2" height="4.2" rx="1.2" fill="#0e1e38" />
+  <rect x="51.6" y="54.1" width="4.2" height="4.2" rx="1.2" fill="#0e1e38" />
+</svg>

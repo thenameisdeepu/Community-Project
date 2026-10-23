@@ -8,7 +8,8 @@ export type IssueCategory =
   | 'Internet'
   | 'Waste'
   | 'Safety'
-  | 'Elevator';
+  | 'Elevator'
+  | 'Other';
 
 export type Severity = 'Low' | 'Medium' | 'Hazard / High' | 'Critical';
 
@@ -42,6 +43,8 @@ export interface Issue {
   updatedTime: string;
   submittedTime: string;
   reportedBy: string;
+  reportedByEmail?: string;
+  reportedById?: string;
   description: string;
   incidentPhoto?: string;
   repairProofPhoto?: string;
@@ -50,6 +53,12 @@ export interface Issue {
   residentComments?: string;
   isNeedsVerification?: boolean;
   division?: string;
+  titleKn?: string;
+  locationKn?: string;
+  descriptionKn?: string;
+  workOrderKn?: string;
+  crewNoteKn?: string;
+  divisionKn?: string;
   timeline: TimelineEvent[];
 }
 
@@ -72,6 +81,14 @@ export interface UserProfile {
   department: string;
   campusSector: string;
   badgeId: string;
+  password?: string;
+  createdAt?: string;
+  status?: string;
+  emailVerified?: boolean;
+  verificationOtp?: string;
+  verificationToken?: string;
+  verificationExpiresAt?: number;
+  lastOtpSentAt?: number;
 }
 
 export interface CampusStats {
@@ -79,8 +96,8 @@ export interface CampusStats {
   activeCrews: number;
   resolvedAndVerified: number;
   actionRequired: number;
-  onTimeSlaRate: number;
-  avgFirstResponseMinutes: number;
-  avgResolutionHours: number;
-  citizenSatisfaction: number;
+  onTimeSlaRate: number | null;
+  avgFirstResponseMinutes: number | null;
+  avgResolutionHours: number | null;
+  citizenSatisfaction: number | null;
 }

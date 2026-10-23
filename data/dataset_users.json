@@ -1,0 +1,32 @@
+[
+  {
+    "id": "usr-2443",
+    "name": "deepu",
+    "email": "deepugowdap@gmail.com",
+    "password": "••••••••••••",
+    "passwordHash": "$2b$10$x3JD7uY4bHVbPBmrUU/4guUdX2yFDyLiHGDiuYOxCnxB9gevm0n0.",
+    "role": "maintenance",
+    "roleTitle": "Field Services Lead",
+    "department": "Neighbrly Resident Welfare",
+    "campusSector": "Sector 4 (Residential)",
+    "badgeId": "NB-MAI-3796",
+    "createdAt": "2026-10-19T13:37:22.443Z",
+    "status": "Active",
+    "emailVerified": true
+  },
+  {
+    "id": "usr-0080",
+    "name": "Deepak",
+    "email": "deepuest2007@gmail.com",
+    "password": "••••••••••••",
+    "passwordHash": "$2b$10$1eNs/Cc3JbMTLsfnuZbk..sWshEbqp6Iw4oExOw2FbGXKK/Q0Lcnu",
+    "role": "admin",
+    "roleTitle": "Community Operations Officer",
+    "department": "Neighbrly Resident Welfare",
+    "campusSector": "Sector 4 (Residential)",
+    "badgeId": "NB-ADM-5424",
+    "createdAt": "2026-10-19T13:31:10.080Z",
+    "status": "Active",
+    "emailVerified": true
+  }
+]
